@@ -1,0 +1,2 @@
+tileforge_tiles    success:GAUGE:0:U, failed:GAUGE:0:U
+tileforge_threads  value:GAUGE:0:U

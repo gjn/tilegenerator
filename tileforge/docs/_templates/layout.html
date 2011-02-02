@@ -1,0 +1,11 @@
+{% extends "!layout.html" %}
+{%- block extrahead %}
+{{ super() }}
+  {% if pagename == "devguide/wmts-debugger" %}
+    <link rel="stylesheet" href="{{ pathto('_static/OpenLayers.css', 1) }}" type="text/css" /> 
+    <script type="text/javascript" src="{{ pathto('_static/OpenLayers.js', 1) }}"></script>
+    <script type="text/javascript" src="{{ pathto('_static/wmts-debugger.js', 1) }}"></script>
+  {% endif %}
+</script>
+{% endblock %}
+
