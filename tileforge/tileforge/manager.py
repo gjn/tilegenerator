@@ -81,6 +81,7 @@ class Manager(object):
             coords = (tile.x, tile.y, tile.z)
             logger.info("can't generated (%04d, %04d, %02d)"%(coords))
             self.error_logs.write("(%04d, %04d, %02d) %s\n%s\n"%(coords + ("=" * 80, message)))
+            self.error_logs.flush()
 
             self.tiles.task_done(coords, errors=True)
             self.fatal = fatal
