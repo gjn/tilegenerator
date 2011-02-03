@@ -120,6 +120,11 @@ class Manager(object):
 
     def send_notification_email(self):
         attachements = []
+        stats_text = "%d threads have generate %d tiles in %s (~ %d tiles/s)"
+        stats_text %= (len(self.generators), 
+                       self.tiles.success_count + self.tiles.failure_count, 
+                       timedelta(seconds=int(self.stopped_at-self.started_at)),
+                       self.tiles.success_count/(self.stopped_at-self.started_at))
         if len(self.tiles.failure):
             logger.info("errors saved to %s"%self.error_logs.name)
             if not self.fatal:
@@ -132,15 +137,11 @@ class Manager(object):
             subject = self.metadata.get("mail_subject_error", 
                                         "error while generating layer '%layer' on host '%host'")
             # fixme: display cmd line to retry
-            body = "Errors list:\n\n%s"%open(self.error_logs.name).read()
+            body = stats_text + "\n\nErrors list:\n\n%s"%open(self.error_logs.name).read()
         else:
             subject = self.metadata.get("mail_subject_success", 
                                         "all tiles generated for layer '%layer' on host '%host'")
-            body = "Without any errors!\n\n%d threads have generate %d tiles in %s (~ %d tiles/s)"
-            body %= (len(self.generators), self.tiles.success_count, 
-                     timedelta(seconds=int(self.stopped_at-self.started_at)),
-                     self.tiles.success_count/(self.stopped_at-self.started_at))
-
+            body = stats_text + "\n\nWithout any errors!"
         if self.metadata.get("mail_to"):
             mail_to = [mail.strip() for mail in self.metadata.get("mail_to").split(",")]
             send_email(to=mail_to, sender=self.metadata.get("mail_from", "tileforge@example.com"),
