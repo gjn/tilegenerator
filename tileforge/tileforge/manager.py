@@ -136,7 +136,7 @@ class Manager(object):
         else:
             subject = self.metadata.get("mail_subject_success", 
                                         "all tiles generated for layer '%layer' on host '%host'")
-            body = "Without any erors!\n\n%d threads have generate %d tiles in %s"
+            body = "Without any errors!\n\n%d threads have generate %d tiles in %s"
             body %= (len(self.generators), self.tiles.success_count, 
                      timedelta(seconds=int(self.stopped_at-self.started_at)))
 
