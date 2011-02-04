@@ -23,14 +23,15 @@ capabilities = """<?xml version="1.0" encoding="UTF-8"?>
     <Layer>
       <ows:Title>{{layer.name}}</ows:Title>
       <ows:Identifier>{{layer.name}}</ows:Identifier>
-      <ows:WGS84BoundingBox>
-        <ows:LowerCorner>{{"%f %f"%to_wsg84(layer.srs, layer.bbox[0], layer.bbox[1])}}</ows:LowerCorner>
-        <ows:UpperCorner>{{"%f %f"%to_wsg84(layer.srs, layer.bbox[2], layer.bbox[3])}}</ows:UpperCorner>
-      </ows:WGS84BoundingBox>
-      <ows:BoundingBox crs="urn:ogc:def:crs:{{layer.srs.replace(':', '::')}}">
-        <ows:LowerCorner>{{"%f %f"%(layer.bbox[0], layer.bbox[1])}}</ows:LowerCorner>
-        <ows:UpperCorner>{{"%f %f"%(layer.bbox[2], layer.bbox[3])}}</ows:UpperCorner>
-      </ows:BoundingBox>
+      <!-- deactivated to avoid Gaia 3.4 crash -->
+      <!-- <ows:WGS84BoundingBox> -->
+      <!--   <ows:LowerCorner>{{"%f %f"%to_wsg84(layer.srs, layer.bbox[0], layer.bbox[1])}}</ows:LowerCorner> -->
+      <!--   <ows:UpperCorner>{{"%f %f"%to_wsg84(layer.srs, layer.bbox[2], layer.bbox[3])}}</ows:UpperCorner> -->
+      <!-- </ows:WGS84BoundingBox> -->
+      <!-- <ows:BoundingBox crs="urn:ogc:def:crs:{{layer.srs.replace(':', '::')}}"> -->
+      <!--   <ows:LowerCorner>{{"%f %f"%(layer.bbox[0], layer.bbox[1])}}</ows:LowerCorner> -->
+      <!--   <ows:UpperCorner>{{"%f %f"%(layer.bbox[2], layer.bbox[3])}}</ows:UpperCorner> -->
+      <!-- </ows:BoundingBox> -->
       <Style isDefault="true">
         <ows:Identifier>default</ows:Identifier>
       </Style>
@@ -38,6 +39,9 @@ capabilities = """<?xml version="1.0" encoding="UTF-8"?>
       <Dimension>
         <ows:Identifier>{{layer.metadata.get("dimension")}}</ows:Identifier>
       </Dimension>
+      <!-- FIXME: validate this: -->
+      <ResourceURL format="{{layer.format()}}" resourceType="tile"
+                   template="{{wmts_gettile}}/1.0.0/{{layer.name}}/{style}/{dim}/{TileMatrixSet}/{TileMatrix}/{TileRow}/{TileCol}.{{layer.extension}}" />
       <TileMatrixSetLink>
         <TileMatrixSet>{{layer.metadata.get("matrix_set", layer.name)}}</TileMatrixSet>
       </TileMatrixSetLink>
