@@ -1,7 +1,7 @@
 import os
 import logging
 import time
-from datetime import timedelta
+from datetime import datetime, timedelta
 from threading import Thread
 from socket import gethostname
 
@@ -120,11 +120,13 @@ class Manager(object):
 
     def send_notification_email(self):
         attachements = []
-        body_text = "%d threads have generate %d tiles in %s (%.1f tiles/s)"
+        body_text = "started at: %s\n"%(datetime.fromtimestamp(int(self.started_at)))
+        body_text += "%d threads have generate %d tiles in %s (%.1f tiles/s)"
         body_text %= (len(self.generators), 
                        self.tiles.success_count, 
                        timedelta(seconds=int(self.stopped_at-self.started_at)),
                        self.tiles.success_count/(self.stopped_at-self.started_at))
+        
         if len(self.tiles.failure):
             logger.info("errors saved to %s"%self.error_logs.name)
             if not self.fatal:
