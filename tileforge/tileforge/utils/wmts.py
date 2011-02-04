@@ -41,7 +41,7 @@ capabilities = """<?xml version="1.0" encoding="UTF-8"?>
       </Dimension>
       <!-- FIXME: validate this: -->
       <ResourceURL format="{{layer.format()}}" resourceType="tile"
-                   template="{{wmts_gettile}}/1.0.0/{{layer.name}}/{style}/{dim}/{TileMatrixSet}/{TileMatrix}/{TileRow}/{TileCol}.{{layer.extension}}" />
+                   template="{{wmts_gettile}}/1.0.0/{{layer.name}}/default/{{layer.metadata.get("dimension")}}/{TileMatrixSet}/{TileMatrix}/{TileRow}/{TileCol}.{{layer.extension}}" />
       <TileMatrixSetLink>
         <TileMatrixSet>{{layer.metadata.get("matrix_set", layer.name)}}</TileMatrixSet>
       </TileMatrixSetLink>
