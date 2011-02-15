@@ -21,7 +21,7 @@ class Manager(object):
                  threads=1, metadata={}):
         self.metadata = metadata
         self.generators = []
-        self.layername = layer.name
+        self.layer = layer
         self.fatal = False
 
         if tiles:
@@ -44,7 +44,7 @@ class Manager(object):
         # errors
         self.error_dir = self.metadata.get("error_dir", "/tmp/tileforge/errors")
         if mkdir(self.error_dir):
-            self.error_logs = open(os.path.join(self.error_dir, self.layername + ".txt"), 'a')
+            self.error_logs = open(os.path.join(self.error_dir, self.layer.name + ".txt"), 'a')
             self.error_logs.truncate(0)
         else:
             raise Exception("can't write errors to '%s'"%self.error_dir)
@@ -102,7 +102,7 @@ class Manager(object):
             logger.warning("can't write stats to '%s'"%dirname)
             return
 
-        filename = os.path.join(dirname, self.layername)
+        filename = os.path.join(dirname, self.layer.name)
         while True:
             values = "%d:%d:%d"%(self.tiles.success_count, self.tiles.failure_count,
                                  len(self.running()))
@@ -130,10 +130,10 @@ class Manager(object):
         if len(self.tiles.failure):
             logger.info("errors saved to %s"%self.error_logs.name)
             if not self.fatal:
-                tiles = os.path.join(self.error_dir, self.layername + ".retry")
+                tiles = os.path.join(self.error_dir, self.layer.name + ".retry")
                 logger.info("retry file saved to %s"%tiles)
 
-                dump(self.layername, [item.get("item") for item in self.tiles.failure], open(tiles, 'w'))
+                dump(self.layer, [item.get("item") for item in self.tiles.failure], open(tiles, 'w'))
                 attachements.append(tiles)
 
             subject = self.metadata.get("mail_subject_error", 
@@ -147,7 +147,7 @@ class Manager(object):
         if self.metadata.get("mail_to"):
             mail_to = [mail.strip() for mail in self.metadata.get("mail_to").split(",")]
             send_email(to=mail_to, sender=self.metadata.get("mail_from", "tileforge@example.com"),
-                       subject=subject.replace('%layer', self.layername).replace('%host', gethostname()),
+                       subject=subject.replace('%layer', self.layer.name).replace('%host', gethostname()),
                        body_text=body_text, files=attachements,
                        server=self.metadata.get("mail_server_host", "localhost"),
                        port=int(self.metadata.get("mail_server_port", "25")))

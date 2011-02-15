@@ -5,7 +5,7 @@ def load(f):
     tiles = [tuple(map(int, tile.strip().split())) for tile in f.readlines()]
     return layername, tiles
 
-def dump(layername, tiles, f):
-    f.write(layername + "\n")
+def dump(layer, tiles, f):
+    f.write(layer.name + "\n")
     for tile in tiles:
         f.write("%d %d %d\n"%tile)
