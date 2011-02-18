@@ -29,6 +29,12 @@ class Generator(threading.Thread):
         self._abort = True
 
     def run(self):
+        try:
+            self._run()
+        except Exception, e:
+            self.on_failure(None, fatal=True, message=str(e))
+
+    def _run(self):
         for coords in self.tiles:
             if self._abort:
                 return
