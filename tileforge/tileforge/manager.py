@@ -80,19 +80,21 @@ class Manager(object):
 
     def error_handler(self, tile, fatal=False, message=None, *args, **kwargs):
         if not self.fatal:
-            coords = (tile.x, tile.y, tile.z)
-            logger.info("can't generated (%04d, %04d, %02d)"%(coords))
-            self.error_logs.write("(%04d, %04d, %02d) %s\n%s\n"%(coords + ("=" * 80, message)))
-            self.error_logs.flush()
-
-            self.tiles.task_done(coords, errors=True)
             self.fatal = fatal
             # self.fatal = fatal or self.tiles.success_count + self.tiles.failure_count > self.error_threshold \
             #     and self.tiles.success_count / self.tiles.failure_count < self.error_ratio
 
             if self.fatal:
-                logger.error("too many errors")
+                self.error_logs.write("(FATAL ERROR) %s\n%s\n"%("=" * 80, message))
                 self.abort()
+            else:
+                # normal error
+                coords = (tile.x, tile.y, tile.z)
+                logger.info("can't generated (%04d, %04d, %02d)"%(coords))
+                self.error_logs.write("(%04d, %04d, %02d) %s\n%s\n"%(coords + ("=" * 80, message)))
+                self.error_logs.flush()
+
+                self.tiles.task_done(coords, errors=True)
 
     def running(self):
         return [thread for thread in self.generators if thread.isAlive()]
@@ -127,7 +129,7 @@ class Manager(object):
                        timedelta(seconds=int(self.stopped_at-self.started_at)),
                        self.tiles.success_count/(self.stopped_at-self.started_at))
         
-        if len(self.tiles.failure):
+        if len(self.tiles.failure) or self.fatal:
             logger.info("errors saved to %s"%self.error_logs.name)
             if not self.fatal:
                 tiles = os.path.join(self.error_dir, self.layer.name + ".retry")
