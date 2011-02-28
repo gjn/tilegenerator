@@ -3,8 +3,20 @@
 {{ super() }}
   {% if pagename == "devguide/wmts-debugger" %}
     <link rel="stylesheet" href="http://www.openlayers.org/api/theme/default/style.css" type="text/css" /> 
-    <script type="text/javascript" src="{{ pathto('_static/OpenLayers.js', 1) }}"></script>
+    <script type="text/javascript" src="http://www.openlayers.org/api/OpenLayers.js"></script>
     <script type="text/javascript" src="{{ pathto('_static/wmts-debugger.js', 1) }}"></script>
+    <style type="text/css">
+      .map {
+        height: 500px;
+        border: 1px solid #ccc;
+        background-image: url(../_static/dark-checker.png);
+      }
+
+      #layer-switcher {
+        height: 300px;
+        overflow: auto;
+      }
+    </style>
   {% endif %}
 </script>
 {% endblock %}
