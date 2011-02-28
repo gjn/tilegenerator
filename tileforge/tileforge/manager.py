@@ -56,8 +56,10 @@ class Manager(object):
         connection = layer.metadata.get("connection")
         data = layer.metadata.get("data")
         if connection and data:
+            logger.info("generating from postgis query")
             return vector(layer, bbox, levels, connection, data)
         else:
+            logger.info("generating all tiles")
             return grid(layer, bbox, levels)
 
     def start(self):
