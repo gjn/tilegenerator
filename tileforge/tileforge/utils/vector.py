@@ -1,8 +1,12 @@
+import logging
+import re
 from struct import pack
 from osgeo import ogr
 
 from TileCache.Layer import MetaTile, Tile
 from tileforge.utils.layer import grid
+
+logger = logging.getLogger(__name__)
 
 def polygon(bbox):
     minx, miny, maxx, maxy = bbox
@@ -25,7 +29,7 @@ def vector(tcLayer, bounds, levels, connection, data):
         raise Exception("PQconnectdb failed: '%s'"%connection)
     assert ds is not None
 
-    for sql in data.split(','):
+    for sql in re.split('"\W*"', data):
         layer = ds.ExecuteSQL("SELECT " + sql.strip('" '), ogrBounds)
         if layer is not None:
             layer.ResetReading()
