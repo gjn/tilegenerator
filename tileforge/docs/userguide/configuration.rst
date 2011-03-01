@@ -30,7 +30,8 @@ The options are:
  * ``metadata_data`` is the SQL statement to execute to retrieve the
    geometry data from the PostGIS database; it's the same as the
    ``DATA`` value found in the mapfile. Multiple statements can be
-   used here, they must be separated with a comma.
+   used here, they must be separated with a comma. All the statements must be
+   contained inside a ``"`` pair.
 
 .. note:: The ``metadata_data`` must not include the ``using unique
    [unique_key]`` or ``using srid=[spatial_reference_id]`` optional
