@@ -85,7 +85,7 @@ $(document).ready(function() {
         div: OpenLayers.Util.getElement("layer-switcher")
 
     });
-    var map = new OpenLayers.Map("map", {
+    var map = new OpenLayers.Map(map_element, {
         theme: false,
         projection: "EPSG:21781",
         units: "m",
@@ -96,4 +96,8 @@ $(document).ready(function() {
                    layerswitcher, 
                    new OpenLayers.Control.MousePosition()]
     });
+    var fs = new OpenLayers.Control.FullScreen();
+    var panel = new OpenLayers.Control.Panel();
+    panel.addControls([fs]);
+    map.addControl(panel);
 });

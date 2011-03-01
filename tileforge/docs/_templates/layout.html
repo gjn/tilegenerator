@@ -4,6 +4,7 @@
   {% if pagename == "devguide/wmts-debugger" %}
     <link rel="stylesheet" href="http://www.openlayers.org/api/theme/default/style.css" type="text/css" /> 
     <script type="text/javascript" src="http://www.openlayers.org/api/OpenLayers.js"></script>
+    <script type="text/javascript" src="{{ pathto('_static/FullScreen.js', 1) }}"></script>
     <script type="text/javascript" src="{{ pathto('_static/wmts-debugger.js', 1) }}"></script>
     <style type="text/css">
       .map {
@@ -19,6 +20,32 @@
       .olControlMousePosition {
         background-color: white;
       }
+      .olControlPanel {
+        right: 0;
+        padding: 5px;
+      }
+      
+      .olControlFullScreenItemActive, .olControlFullScreenItemInactive {
+        height: 20px;
+        width: 20px;
+        background-image: url(../_static/sprite.png);
+        cursor: pointer;
+      }
+      .olControlFullScreenItemActive {
+        background-position: 0 -25px;
+      }
+      .olControlFullScreenItemInactive {
+        background-position: 0 0;
+      }
+
+      .fullscreen_map {
+        height: 100% !important;
+        width: 100% !important;
+        position: fixed;
+        left: 0;
+        top: 0;
+      }
+
     </style>
   {% endif %}
 </script>
