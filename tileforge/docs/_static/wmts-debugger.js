@@ -94,7 +94,12 @@ $(document).ready(function() {
         maxExtent: new OpenLayers.Bounds(420000,30000,900000,350000),
         controls: [new OpenLayers.Control.Navigation(), 
                    layerswitcher, 
-                   new OpenLayers.Control.MousePosition()]
+                   new OpenLayers.Control.MousePosition({
+                       formatOutput: function(lonLat) {
+                           return OpenLayers.Control.MousePosition.prototype.formatOutput.apply(this, arguments) + 
+                               "(" + map.getExtent().toBBOX() + ")";
+                       }
+                   })]
     });
     var fs = new OpenLayers.Control.FullScreen();
     var panel = new OpenLayers.Control.Panel();
