@@ -2,8 +2,9 @@
 {%- block extrahead %}
 {{ super() }}
   {% if pagename == "devguide/wmts-debugger" %}
-    <link rel="stylesheet" href="http://www.openlayers.org/api/theme/default/style.css" type="text/css" /> 
-    <script type="text/javascript" src="http://www.openlayers.org/api/OpenLayers.js"></script>
+    <link rel="stylesheet" href="http://www.openlayers.org/dev/theme/default/style.css" type="text/css" /> 
+    <script type="text/javascript" src="http://www.openlayers.org/dev/OpenLayers.js"></script>
+    <script type="text/javascript" src="{{ pathto('_static/WMTS.js', 1) }}"></script>
     <script type="text/javascript" src="{{ pathto('_static/FullScreen.js', 1) }}"></script>
     <script type="text/javascript" src="{{ pathto('_static/wmts-debugger.js', 1) }}"></script>
     <style type="text/css">

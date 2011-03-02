@@ -1,41 +1,3 @@
-function createLayer(capabilities, config) {
-    var contents = capabilities.contents;
-    var layers = contents.layers;
-
-    var layerDef;
-    for (var i=0, ii=contents.layers.length; i<ii; ++i) {
-        if (contents.layers[i].identifier === config.layer) {
-            layerDef = contents.layers[i];
-            break;
-        }
-    }
-
-    if (layerDef) {
-        // get the default style for the layer
-        var style;
-        for (var i=0, ii=layerDef.styles.length; i<ii; ++i) {
-            style = layerDef.styles[i];
-            if (style.isDefault) {
-                break;
-            }
-        }
-        // get the default matrixSet for the layer
-        if (!config.matrixSet && layerDef.tileMatrixSetLinks.length === 1) {
-            config.matrixSet = layerDef.tileMatrixSetLinks[0].tileMatrixSet;
-        }
-        var matrixSet = contents.tileMatrixSets[config.matrixSet];
-        
-        return new OpenLayers.Layer.WMTS(
-            OpenLayers.Util.applyDefaults(config, {
-                url: capabilities.operationsMetadata.GetTile.dcp.http.get,
-                name: layerDef.title,
-                style: style.identifier,
-                format: layerDef.formats.length === 1 ? layerDef.formats[0] : undefined,
-                matrixIds: matrixSet.matrixIds
-            }));
-    }
-}
-
 $(document).ready(function() {
     var map_element = document.getElementById("map");
     map_element.addEventListener("dragover", function(evt) {
@@ -53,23 +15,16 @@ $(document).ready(function() {
             reader.onloadend = function() {
                 var format = new OpenLayers.Format.WMTSCapabilities();
                 var capabilities = format.read(this.result);
+                // remove all layers from the map
                 for (var i = 0, len = map.layers.length; i < len; i++) {
                     map.removeLayer(map.layers[i]);
                 }
-
                 for (var i = 0, len = capabilities.contents.layers.length; i < len; i++) {
-                    var layer = createLayer(capabilities, {
+                    var layer = new OpenLayers.Layer.WMTS({
                         requestEncoding: "REST",
-                        dimensions: ["210111"],
-                        params: {
-                            "210111": "210111"
-                        },
-                        formatSuffixMap: {
-                            "image/png": "png",
-                            "image/jpeg": "jpeg"
-                        },
-                        visibility: false,
-                        layer: capabilities.contents.layers[i].title
+                        name: capabilities.contents.layers[i].title,
+                        resourceUrl: capabilities.contents.layers[i].resourceUrl.tile.template,
+                        visibility: false
                     });
                     map.addLayer(layer);
                 }
