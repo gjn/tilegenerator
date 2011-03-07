@@ -21,7 +21,7 @@ def main():
     parser.add_option("-b","--bbox",
                       help="restrict to specified bounding box")
     parser.add_option("-t","--threads", type="int", default=5,
-                      help="number of concurrent threads to run")
+                      help="number of concurrent threads to run (defaults is 5)")
 
     parser.add_option("-r","--retry",
                       help="retry to generated tiles from RETRY file")
