@@ -27,7 +27,7 @@ setup(name='tileforge',
       zip_safe=False,
       install_requires=[
 #        "TileCache", "boto", "tempita", "pyproj", "cloudfiles"
-        "TileCache", "boto", "tempita", "pyproj"
+        "PIL", "TileCache", "boto", "tempita", "pyproj"
       ],
       entry_points={
         "console_scripts": ["tilemanager = tileforge.bin.tilemanager:main",
