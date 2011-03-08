@@ -32,7 +32,8 @@ class Generator(threading.Thread):
         try:
             self._run()
         except Exception, e:
-            self.on_failure(None, fatal=True, message=str(e))
+            import traceback
+            self.on_failure(None, fatal=True, message=traceback.format_exc())
 
     def _run(self):
         for coords in self.tiles:
@@ -67,7 +68,7 @@ class Generator(threading.Thread):
             image = self.layer.render(tile)
         except Exception, e:
             self.on_failure(tile, message=str(e))
-            return None
+            return None, 0.0
         return image, time() - start
 
     def image_postproc(self, tile, image):
@@ -80,7 +81,7 @@ class Generator(threading.Thread):
                 image = run(image, self.postproc)
             except Exception, e:
                 self.on_failure(tile, message=str(e))
-                return None
+                return None, 0.0
         return image, time() - start
 
     def save(self, tile, image):
