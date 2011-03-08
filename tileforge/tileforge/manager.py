@@ -75,9 +75,9 @@ class Manager(object):
         self.send_notification_email()
         return len(self.tiles.failure) == 0
 
-    def success_handler(self, tile, duration=None, *args, **kwargs):
+    def success_handler(self, tile, durations=None, *args, **kwargs):
         coords = (tile.x, tile.y, tile.z)
-        logger.info("generated (x: %04d, y: %04d, z: %02d) in %fs"%(coords + (duration,)))
+        logger.info("generated (x: %04d, y: %04d, z: %02d) in (%fs, %fs, %fs)"%(coords + durations))
         self.tiles.task_done(coords)
 
     def error_handler(self, tile, fatal=False, message=None, *args, **kwargs):
