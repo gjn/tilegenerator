@@ -85,15 +85,15 @@ class Manager(object):
             self.fatal = fatal
             # self.fatal = fatal or self.tiles.success_count + self.tiles.failure_count > self.error_threshold \
             #     and self.tiles.success_count / self.tiles.failure_count < self.error_ratio
-
+            now = datetime.fromtimestamp(int(time.time()))
             if self.fatal:
-                self.error_logs.write("(FATAL ERROR) %s\n%s\n"%("=" * 80, message))
+                self.error_logs.write("(FATAL ERROR) === %s ===\n%s\n"%(now, message))
                 self.abort()
             else:
                 # normal error
                 coords = (tile.x, tile.y, tile.z)
                 logger.info("can't generated (%04d, %04d, %02d)"%(coords))
-                self.error_logs.write("(%04d, %04d, %02d) %s\n%s\n"%(coords + ("=" * 80, message)))
+                self.error_logs.write("(%04d, %04d, %02d) === %s ===\n%s\n"%(coords + (now, message)))
                 self.error_logs.flush()
 
                 self.tiles.task_done(coords, errors=True)
