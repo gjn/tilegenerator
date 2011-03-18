@@ -7,7 +7,7 @@ Install the buildout environment:
 
 Install the project:
 
-  buildout/bin/buildout
+  buildout/bin/buildout -n
 
 Run unit tests
 ==============
