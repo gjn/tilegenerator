@@ -12,5 +12,5 @@ Install the project:
 Run unit tests
 ==============
 
-  python setup.py test
+  buildout/bin/python setup.py test
 
