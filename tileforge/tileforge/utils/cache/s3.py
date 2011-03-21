@@ -5,11 +5,11 @@ from boto.s3.key import Key
 from TileCache.Cache import Cache
 
 class AWSS3(Cache):
-    def __init__ (self, access_key, secret_access_key, bucket_name, validate="false", **kwargs):
+    def __init__ (self, access_key, secret_access_key, bucket_name, validate="false", is_secure="false",**kwargs):
         Cache.__init__(self, **kwargs)
         self.validate = validate.lower() in ["yes", "y", "t", "true"]
 
-        connection = connect_s3(access_key, secret_access_key)
+        connection = connect_s3(access_key, secret_access_key, is_secure=is_secure.lower() in ["yes", "y", "t", "true"])
         self.bucket = connection.get_bucket(bucket_name)
 
     def getKey(self, tile):
