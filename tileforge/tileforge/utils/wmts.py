@@ -1,7 +1,7 @@
-from TileCache.Layer import Tile
+from math import ceil
+
 from tempita import Template
 from pyproj import Proj, transform
-from tileforge.utils.layer import exact_cell
 
 capabilities = """<?xml version="1.0" encoding="UTF-8"?>
 <Capabilities version="1.0.0" xmlns="http://www.opengis.net/wmts/1.0" xmlns:ows="http://www.opengis.net/ows/1.1"
@@ -87,14 +87,16 @@ def matrix_sets(layers):
         if matrix_set_id not in sets:
             matrix_set = {"crs": layer.srs.replace(':', '::'), "matrices": []}
             for i, resolution in enumerate(layer.resolutions):
-                col, row = exact_cell(layer, layer.bbox[2], layer.bbox[3], i)
-                _, _, _, maxy = Tile(layer, col, row, i).bounds()
+                col = int(ceil(((layer.bbox[2] - layer.bbox[0]) / layer.size[0]) / resolution))
+                row = int(ceil(((layer.bbox[3] - layer.bbox[1]) / layer.size[1]) / resolution))
+                maxy = layer.bbox[1] + (row * layer.size[1] * resolution) 
+
                 matrix_set["matrices"].append({
                     "id": i,
                     "tilewidth": layer.size[0],
                     "tileheight": layer.size[1],
-                    "matrixwidth": col + 1,
-                    "matrixheight": row + 1,
+                    "matrixwidth": col,
+                    "matrixheight": row,
                     "resolution": resolution,
                     "scale": resolution * meters_per_unit[layer.units] / 0.00028, # 0.000028 correxpond to 0.28 mm per pixel
                     "topleft": "%f %f"%(layer.bbox[0], maxy)
