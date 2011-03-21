@@ -50,7 +50,6 @@ class Generator(threading.Thread):
 
             image, duration = self.image_postproc(tile, image)
             times.append(duration)
-            start = time()
             if image is None:
                 continue
 
