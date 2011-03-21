@@ -76,9 +76,9 @@ class Manager(object):
         return len(self.tiles.failure) == 0
 
     def success_handler(self, tile, durations=None, *args, **kwargs):
-        coords = (tile.x, tile.y, tile.z)
-        self.tiles.task_done(coords)
-        logger.info("generated tile: (x: %04d, y: %04d, z: %02d) duration: (render: %.3fs, post-proc: %.3fs, save: %.3fs)"%(coords + durations))
+        self.tiles.task_done((tile.x, tile.y, tile.z))
+        coords = "(x: %04d, y: %04d, z: %02d)"%(tile.x, tile.y, tile.z)
+        logger.info("generated tile: %s duration: (render: %.3fs, post-proc: %.3fs, save: %.3fs)"%((coords,) + durations))
 
     def error_handler(self, tile, fatal=False, message=None, *args, **kwargs):
         if not self.fatal:
@@ -91,12 +91,12 @@ class Manager(object):
                 self.abort()
             else:
                 # normal error
-                coords = (tile.x, tile.y, tile.z)
-                logger.info("can't generated (%04d, %04d, %02d)"%(coords))
-                self.error_logs.write("(%04d, %04d, %02d) === %s ===\n%s\n"%(coords + (now, message)))
+                coords = "(x: %04d, y: %04d, z: %02d)"%(tile.x, tile.y, tile.z)
+                logger.info("can't generated %s"%coords)
+                self.error_logs.write("%s === %s ===\n%s\n"%(coords, now, message))
                 self.error_logs.flush()
 
-                self.tiles.task_done(coords, errors=True)
+                self.tiles.task_done((tile.x, tile.y, tile.z), errors=True)
 
     def running(self):
         return [thread for thread in self.generators if thread.isAlive()]
