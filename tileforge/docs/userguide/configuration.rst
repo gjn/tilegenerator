@@ -104,6 +104,7 @@ FIXME: s3 cache setup::
     access_key = key
     secret_access_key = secret
     validate = true
+    is_secure = true
 
 Where:
  * ``module``: fixme.
@@ -114,6 +115,9 @@ Where:
  * ``secret_access_key``: The AWS secret access key.
  * ``validate``: ``true`` to check if the tile is really present in
    the bucket after the upload. Default is ``false``
+ * ``is_secure``: Whether the connection to s3 is already secure, if
+ the tile are generated inside the aws network, this can be set to
+ ``true``. Defaults to ``false``.
 
 .. _email-config:
 
