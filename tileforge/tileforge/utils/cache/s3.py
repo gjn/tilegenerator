@@ -1,6 +1,6 @@
+from math import ceil
 from boto import connect_s3
 from boto.s3.key import Key
-from tileforge.utils.layer import exact_cell
 
 from TileCache.Cache import Cache
 
@@ -13,17 +13,18 @@ class AWSS3(Cache):
         self.bucket = connection.get_bucket(bucket_name)
 
     def getKey(self, tile):
-        _, row_count = exact_cell(tile.layer, tile.layer.bbox[2], tile.layer.bbox[3], tile.z)
+        layer = tile.layer
+        row_count = int(ceil(((layer.bbox[3] - layer.bbox[1]) / layer.size[1]) / layer.resolutions[tile.z]))
 
-        style = tile.layer.metadata.get("style", "default")
-        dimension = tile.layer.metadata.get("dimension")
-        tile_matrix_set = tile.layer.metadata.get("matrix_set", tile.layer.name)
+        style = layer.metadata.get("style", "default")
+        dimension = layer.metadata.get("dimension")
+        tile_matrix_set = layer.metadata.get("matrix_set", layer.name)
         tile_matrix = "%d"%int(tile.z)
         tile_row = "%d"%int(row_count - tile.y)
         tile_col = "%d"%int(tile.x)
 
-        return "/".join(["1.0.0", tile.layer.name, style, dimension, tile_matrix_set,
-                         tile_matrix, tile_row, tile_col + ".%s"%tile.layer.extension])
+        return "/".join(["1.0.0", layer.name, style, dimension, tile_matrix_set,
+                         tile_matrix, tile_row, tile_col + ".%s"%layer.extension])
 
     def set(self, tile, data):
         if self.readonly:
