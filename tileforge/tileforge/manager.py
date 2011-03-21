@@ -124,7 +124,8 @@ class Manager(object):
 
     def send_notification_email(self):
         attachements = []
-        body_text = "started at: %s\n"%(datetime.fromtimestamp(int(self.started_at)))
+        body_text  = "started at: %s\n"%(datetime.fromtimestamp(int(self.started_at)))
+        body_text += "ended at: %s\n"%(datetime.fromtimestamp(int(self.stopped_at)))
         body_text += "%d threads have generate %d tiles in %s (%.1f tiles/s)"
         body_text %= (len(self.generators), 
                        self.tiles.success_count, 
