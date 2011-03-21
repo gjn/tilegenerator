@@ -30,22 +30,19 @@ class AWSS3(Cache):
         if self.readonly:
             return data
         else:
-            k = Key(self.bucket)
-            k.key = self.getKey(tile)
+            k = Key(bucket=self.bucket, name=self.getKey(tile))
             k.set_contents_from_string(data, headers={"Content-Type": tile.layer.mime_type})
-            if self.validate and k.key not in self.bucket:
+            if self.validate and k.name not in self.bucket:
                 raise Exception("'%s' uploaded but not in bucket"%k.key)
 
             return data
 
     def read(self, path, *args, **kwargs):
-        k = Key(self.bucket)
-        k.key = path
+        k = Key(bucket=self.bucket, name=path)
         return k.get_contents_as_string(*args, **kwargs)
 
     def write(self, data, path, *args, **kwargs):
-        k = Key(self.bucket)
-        k.key = path
+        k = Key(bucket=self.bucket, name=path)
         k.set_contents_from_string(data, *args, **kwargs)
 
     def get(self, tile):
