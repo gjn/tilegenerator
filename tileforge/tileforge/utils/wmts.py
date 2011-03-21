@@ -55,7 +55,7 @@ capabilities = """<?xml version="1.0" encoding="UTF-8"?>
     {{for matrix in matrix_set["matrices"]}}
       <TileMatrix>
         <ows:Identifier>{{matrix["id"]}}</ows:Identifier>
-        <ScaleDenominator>{{matrix["scale"]}}</ScaleDenominator>
+        <ScaleDenominator>{{matrix["scale"]}}</ScaleDenominator> <!-- resolution: {{matrix["resolution"]}} -->
         <TopLeftCorner>{{matrix["topleft"]}}</TopLeftCorner>
         <TileWidth>{{matrix["tilewidth"]}}</TileWidth>
         <TileHeight>{{matrix["tileheight"]}}</TileHeight>
@@ -95,6 +95,7 @@ def matrix_sets(layers):
                     "tileheight": layer.size[1],
                     "matrixwidth": col + 1,
                     "matrixheight": row + 1,
+                    "resolution": resolution,
                     "scale": resolution * meters_per_unit[layer.units] / 0.00028, # 0.000028 correxpond to 0.28 mm per pixel
                     "topleft": "%f %f"%(layer.bbox[0], maxy)
                 })
