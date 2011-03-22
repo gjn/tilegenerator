@@ -2,6 +2,8 @@
 """
 from math import ceil
 
+__ALL__ = ["grid"]
+
 def grid(layer, bbox=None, levels=None, use_buffer=False):
     if not bbox:
         bbox = layer.bbox
