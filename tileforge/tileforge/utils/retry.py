@@ -1,11 +1,22 @@
-import pickle
+from math import ceil
 
-def load(f):
-    layername = f.readline().strip()
-    tiles = [tuple(map(int, tile.strip().split())) for tile in f.readlines()]
+__ALL__ = ["load", "dump"]
+
+def load(f, service):
+    lines = [line.strip() for line in f.readlines() if not line.startswith('#')]
+    layername = lines.pop(0)
+    layer = service.layers.get(layername)
+    tiles = []
+    for z, row, col in [tuple(map(int, tile.split())) for tile in lines]:
+        row_count = int(ceil(((layer.bbox[3] - layer.bbox[1]) / layer.size[1]) / layer.resolutions[z]))
+        tiles.append((col, row_count - 1 - row, z))
+
     return layername, tiles
 
 def dump(layer, tiles, f):
+    f.write("# retry file in WMTS format: 'tile_matrix, row, col'\n")
     f.write(layer.name + "\n")
-    for tile in tiles:
-        f.write("%d %d %d\n"%tile)
+    for x, y, z in tiles:
+        row_count = int(ceil(((layer.bbox[3] - layer.bbox[1]) / layer.size[1]) / layer.resolutions[z]))
+        f.write("%d %d %d\n"%(z, row_count - y - 1, x))
+        #f.write("%d %d (%d) %d\n"%(z, row_count - y - 1, y,x))

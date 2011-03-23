@@ -37,8 +37,13 @@ def main():
     else:
         logging.basicConfig(level=logging.INFO)
 
+    if not os.access(options.config, os.R_OK):
+        parser.error("can't read config file '%s'"%options.config)
+
+    service = Service.load(options.config)
+
     if options.retry is not None:
-        layername, tiles = load(open(options.retry, 'r'))
+        layername, tiles = load(open(options.retry, 'r'), service)
         bbox = levels = None
     else:
         tiles = None
@@ -47,10 +52,6 @@ def main():
         else:
             parser.error("missing LAYERNAME argument")
 
-    if not os.access(options.config, os.R_OK):
-        parser.error("can't read config file '%s'"%options.config)
-
-    service = Service.load(options.config)
     layer = service.layers.get(layername)
 
     if "exception" in service.metadata:
