@@ -32,16 +32,16 @@ def exact_cell(layer, x, y, z):
     xindex = int(px) / layer.size[0]
     yindex = int(py) / layer.size[1]
 
-    maxx, maxy = tuple([int(ceil(m)) for m in layer.grid(z)])
+    width, height = tuple([int(ceil(m)) for m in layer.grid(z)])
     if xindex < 0:
         xindex = 0
-    elif xindex > maxx:
-        xindex = maxx
+    elif xindex >= width:
+        xindex = width - 1
 
     if yindex < 0:
         yindex = 0
-    elif yindex > maxy:
-        yindex = maxy
+    elif yindex > height:
+        yindex = height - 1
 
     return xindex, yindex
 
