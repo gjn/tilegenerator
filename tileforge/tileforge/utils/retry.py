@@ -19,4 +19,3 @@ def dump(layer, tiles, f):
     for x, y, z in tiles:
         row_count = int(ceil(((layer.bbox[3] - layer.bbox[1]) / layer.size[1]) / layer.resolutions[z]))
         f.write("%d %d %d\n"%(z, row_count - y - 1, x))
-        #f.write("%d %d (%d) %d\n"%(z, row_count - y - 1, y,x))
