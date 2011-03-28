@@ -20,7 +20,7 @@ class AWSS3(Cache):
         dimension = layer.metadata.get("dimension")
         tile_matrix_set = layer.metadata.get("matrix_set", layer.name)
         tile_matrix = "%d"%int(tile.z)
-        tile_row = "%d"%int(row_count - tile.y)
+        tile_row = "%d"%int(row_count - tile.y - 1)
         tile_col = "%d"%int(tile.x)
 
         return "/".join(["1.0.0", layer.name, style, dimension, tile_matrix_set,
