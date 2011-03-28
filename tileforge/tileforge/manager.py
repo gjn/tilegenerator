@@ -22,12 +22,14 @@ class Manager(object):
         self.metadata = metadata
         self.generators = []
         self.layer = layer
+        self.bbox = bbox
+        self.levels = levels
         self.fatal = False
 
         if tiles:
             self.tiles = TodoList(tiles)
         else:
-            self.tiles = TodoList(self.init_grid(layer, bbox, levels))
+            self.tiles = TodoList(self.init_grid())
 
         for thread in range(threads):
             generator = Generator(layer, cache,
@@ -52,15 +54,15 @@ class Manager(object):
         self.error_threshold = int(self.metadata.get("errors_generatemin", "10"));
         self.error_ratio = int(self.metadata.get("errors_succesratio", "1000"))
 
-    def init_grid(self, layer, bbox, levels):
-        connection = layer.metadata.get("connection")
-        data = layer.metadata.get("data")
+    def init_grid(self):
+        connection = self.layer.metadata.get("connection")
+        data = self.layer.metadata.get("data")
         if connection and data:
             logger.info("generating from postgis query")
-            return vector(layer, bbox, levels, connection, data)
+            return vector(self.layer, self.bbox, self.levels, connection, data)
         else:
             logger.info("generating all tiles")
-            return grid(layer, bbox, levels)
+            return grid(self.layer, self.bbox, self.levels)
 
     def start(self):
         [g.start() for g in self.generators]
@@ -126,11 +128,16 @@ class Manager(object):
         attachements = []
         body_text  = "started at: %s\n"%(datetime.fromtimestamp(int(self.started_at)))
         body_text += "ended at: %s\n"%(datetime.fromtimestamp(int(self.stopped_at)))
-        body_text += "%d threads have generate %d tiles in %s (%.1f tiles/s)"
+        body_text += "%d threads have generate %d tiles in %s (%.1f tiles/s)\n\n"
         body_text %= (len(self.generators), 
                        self.tiles.success_count, 
                        timedelta(seconds=int(self.stopped_at-self.started_at)),
                        self.tiles.success_count/(self.stopped_at-self.started_at))
+
+        body_text += "WMTS dimension: %s\n"%(self.layer.metadata.get("dimension", "n/a"))
+        body_text += "WMTS matrix set: %s\n"%(self.layer.metadata.get("matrix_set", "n/a"))
+        body_text += "bounding box: %s\n"%(str(self.bbox))
+        body_text += "levels: %s\n"%(str(self.levels))
         
         if len(self.tiles.failure) or self.fatal:
             logger.info("errors saved to %s"%self.error_logs.name)
