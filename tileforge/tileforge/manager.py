@@ -25,6 +25,7 @@ class Manager(object):
         self.bbox = bbox
         self.levels = levels
         self.fatal = False
+        self.duration = {'render': 0.0, 'post-proc': 0.0, 'save': 0.0}
 
         if tiles:
             self.tiles = TodoList(tiles)
@@ -81,6 +82,9 @@ class Manager(object):
         self.tiles.task_done((tile.x, tile.y, tile.z))
         coords = "(x: %04d, y: %04d, z: %02d)"%(tile.x, tile.y, tile.z)
         logger.info("generated tile: %s duration: (render: %.3fs, post-proc: %.3fs, save: %.3fs)"%((coords,) + durations))
+        self.duration['render'] += durations[0]
+        self.duration['post-proc'] += durations[1]
+        self.duration['save'] += durations[2]
 
     def error_handler(self, tile, fatal=False, message=None, *args, **kwargs):
         if not self.fatal:
@@ -128,11 +132,17 @@ class Manager(object):
         attachements = []
         body_text  = "started at: %s\n"%(datetime.fromtimestamp(int(self.started_at)))
         body_text += "ended at: %s\n"%(datetime.fromtimestamp(int(self.stopped_at)))
-        body_text += "%d threads have generate %d tiles in %s (%.1f tiles/s)\n\n"
+        body_text += "%d threads have generate %d tiles in %s (%.1f tiles/s)\n"
         body_text %= (len(self.generators), 
                        self.tiles.success_count, 
                        timedelta(seconds=int(self.stopped_at-self.started_at)),
                        self.tiles.success_count/(self.stopped_at-self.started_at))
+        
+        if self.tiles.success_count > 0:
+            body_text += "average time: render = %.3fs, post-proc = %.3fs, save = %.3fs\n\n"
+            body_text %= (self.duration['render'] / self.tiles.success_count, 
+                          self.duration['post-proc'] / self.tiles.success_count, 
+                          self.duration['save'] / self.tiles.success_count)
 
         body_text += "WMTS dimension: %s\n"%(self.layer.metadata.get("dimension", "n/a"))
         body_text += "WMTS matrix set: %s\n"%(self.layer.metadata.get("matrix_set", "n/a"))
