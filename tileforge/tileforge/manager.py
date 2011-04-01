@@ -149,7 +149,7 @@ class Manager(object):
             logger.info(times_stats)
             body_text += times_stats + "\n\n"
 
-        body_text += times_stats
+        body_text += "Uses metatiling: %s\n"%(self.layer.metaTile)
         body_text += "WMTS dimension: %s\n"%(self.layer.metadata.get("dimension", "n/a"))
         body_text += "WMTS matrix set: %s\n"%(self.layer.metadata.get("matrix_set", "n/a"))
         body_text += "bounding box: %s\n"%(str(self.bbox))
