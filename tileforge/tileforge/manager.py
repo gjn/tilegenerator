@@ -105,7 +105,7 @@ class Manager(object):
                 self.tiles.task_done((tile.x, tile.y, tile.z), errors=True)
 
     def running(self):
-        return [thread for thread in self.generators if thread.isAlive()]
+        return [thread for thread in self.generators if thread.is_alive()]
 
     def write_status(self, dirname, interval):
         if not mkdir(dirname):
