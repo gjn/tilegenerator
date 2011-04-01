@@ -132,18 +132,24 @@ class Manager(object):
         attachements = []
         body_text  = "started at: %s\n"%(datetime.fromtimestamp(int(self.started_at)))
         body_text += "ended at: %s\n"%(datetime.fromtimestamp(int(self.stopped_at)))
-        body_text += "%d threads have generate %d tiles in %s (%.1f tiles/s)\n"
-        body_text %= (len(self.generators), 
+        
+        times_stats  = "%d threads have generate %d tiles in %s (%.1f tiles/s)"
+        times_stats %= (len(self.generators), 
                        self.tiles.success_count, 
                        timedelta(seconds=int(self.stopped_at-self.started_at)),
                        self.tiles.success_count/(self.stopped_at-self.started_at))
+        logger.info(times_stats)
+        body_text += times_stats + "\n"
         
         if self.tiles.success_count > 0:
-            body_text += "average time: render = %.3fs, post-proc = %.3fs, save = %.3fs\n\n"
-            body_text %= (self.duration['render'] / self.tiles.success_count, 
+            times_stats  = "average time: render = %.3fs, post-proc = %.3fs, save = %.3fs"
+            times_stats %= (self.duration['render'] / self.tiles.success_count, 
                           self.duration['post-proc'] / self.tiles.success_count, 
                           self.duration['save'] / self.tiles.success_count)
+            logger.info(times_stats)
+            body_text += times_stats + "\n\n"
 
+        body_text += times_stats
         body_text += "WMTS dimension: %s\n"%(self.layer.metadata.get("dimension", "n/a"))
         body_text += "WMTS matrix set: %s\n"%(self.layer.metadata.get("matrix_set", "n/a"))
         body_text += "bounding box: %s\n"%(str(self.bbox))
