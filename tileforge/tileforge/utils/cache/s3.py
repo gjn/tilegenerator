@@ -8,9 +8,25 @@ class AWSS3(Cache):
     def __init__ (self, access_key, secret_access_key, bucket_name, validate="false", is_secure="false",**kwargs):
         Cache.__init__(self, **kwargs)
         self.validate = validate.lower() in ["yes", "y", "t", "true"]
+        self.is_secure = is_secure=is_secure.lower() in ["yes", "y", "t", "true"]
+        self.credential = (access_key, secret_access_key)
+        self.bucket_name = bucket_name
+        self._bucket = None
 
-        connection = connect_s3(access_key, secret_access_key, is_secure=is_secure.lower() in ["yes", "y", "t", "true"])
-        self.bucket = connection.get_bucket(bucket_name)
+    @property
+    def bucket(self):
+        if self._bucket is None:
+            connection = connect_s3(*self.credential, is_secure=self.is_secure)
+            self._bucket = connection.get_bucket(self.bucket_name)
+        return self._bucket
+
+    def __getstate__(self):
+        d = self.__dict__.copy()
+        d['_bucket'] = None
+        return d
+
+    def __setstate__(self, state):
+        self.__dict__ = state
 
     def getKey(self, tile):
         layer = tile.layer
