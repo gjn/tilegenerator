@@ -51,8 +51,9 @@ $(document).ready(function() {
                    layerswitcher, 
                    new OpenLayers.Control.MousePosition({
                        formatOutput: function(lonLat) {
-                           return OpenLayers.Control.MousePosition.prototype.formatOutput.apply(this, arguments) + 
-                               "(" + map.getExtent().toBBOX() + ")";
+                           return this.map.getZoom() + " " + 
+                               OpenLayers.Control.MousePosition.prototype.formatOutput.apply(this, arguments) + 
+                               " (" + map.getExtent().toBBOX() + ")";
                        }
                    })]
     });
