@@ -3,7 +3,7 @@ import tempfile
 import subprocess
 
 def run(data, cmd):
-    tmp = tempfile.NamedTemporaryFile()
+    tmp = tempfile.NamedTemporaryFile(dir='/dev/shm')
     tmp.write(data)
     tmp.flush()
     os.fsync(tmp.fileno())
