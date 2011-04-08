@@ -1,5 +1,0 @@
-#!/usr/bin/env python
-from tileforge.bin import tilemanager
-    
-if __name__ == "__main__":
-    tilemanager.main()
