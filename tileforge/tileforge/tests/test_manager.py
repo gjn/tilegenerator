@@ -12,9 +12,8 @@ class TestManager(unittest.TestCase):
     def test_init(self):
         manager = Manager(self.raster, self.cache, threads=12)
 
-        assert len(manager.generators) == 12
-        assert len(manager.running()) == 0
-        assert manager.tiles.success_count == manager.tiles.failure_count == 0
+        assert manager.poolsize == 12
+        assert manager.success_count == len(manager.failures) == 0
 
     def test_run_valid_layer(self):
         manager = Manager(self.raster, self.cache, levels=(0, 1), threads=2)
@@ -23,8 +22,8 @@ class TestManager(unittest.TestCase):
 
         status = manager.join()
         assert not manager.running()
-        assert manager.tiles.success_count > 0
-        assert manager.tiles.failure_count == 0
+        assert manager.success_count > 0
+        assert len(manager.failures) == 0
         assert status is True
         assert manager.fatal is False
 
@@ -35,8 +34,8 @@ class TestManager(unittest.TestCase):
 
         status = manager.join()
         assert not manager.running()
-        assert manager.tiles.success_count == 0
-        assert manager.tiles.failure_count > 0
+        assert manager.success_count == 0
+        assert len(manager.failures) > 0
         assert status is False
         assert manager.fatal is False, "not so many errors"
 
