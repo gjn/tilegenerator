@@ -85,7 +85,7 @@ class Manager(object):
         self.success_count += 1
         str_coords = "(x: %04d, y: %04d, z: %02d)"%coords
         str_durations = "(render: %.3fs, post-proc: %.3fs, save: %.3fs)"%durations
-        logger.info("generated tile: %s %s"%(str_coords, str_durations))
+        logger.info("'%s': generated tile: %s %s"%(self.layer.name, str_coords, str_durations))
         self.duration['render'] += durations[0]
         self.duration['post-proc'] += durations[1]
         self.duration['save'] += durations[2]
