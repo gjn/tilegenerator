@@ -15,8 +15,7 @@ def polygon(bbox):
                                                       maxx, maxy, 
                                                       maxx, miny, 
                                                       minx, miny)
-    return ogr.Geometry(wkt=wkt)
-
+    return ogr.CreateGeometryFromWkt(wkt)
 
 def vector(tcLayer, bounds, levels, connection, data):
     # http://www.gdal.org/ogr/classOGRDataSource.html#a6acc228db6513784a56ce12334a8c33
@@ -34,8 +33,8 @@ def vector(tcLayer, bounds, levels, connection, data):
         if layer is not None:
             layer.ResetReading()
 
-            for geomerty in (f.GetGeometryRef() for f in layer):
-                minx, maxx, miny, maxy = geomerty.GetEnvelope()
+            for geometry in (f.GetGeometryRef() for f in layer):
+                minx, maxx, miny, maxy = geometry.GetEnvelope()
                 for x, y, z in grid(tcLayer, (minx, miny, maxx, maxy), levels, use_buffer=True):
                     tile = pack('3i', x, y, z)
                     if tile not in tiles:
@@ -44,7 +43,7 @@ def vector(tcLayer, bounds, levels, connection, data):
                         shift = tcLayer.yshift(z) if hasattr(tcLayer, 'yshift') else 0.0
                         tminy -= shift
                         tmaxy -= shift
-                        if geomerty.Intersect(polygon((tminx, tminy, tmaxx, tmaxy))):
+                        if geometry.Intersect(polygon((tminx, tminy, tmaxx, tmaxy))):
                             tiles[tile] = pad
                             yield (x, y, z) 
             ds.ReleaseResultSet(layer)
