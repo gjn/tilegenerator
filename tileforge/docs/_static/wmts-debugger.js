@@ -1,11 +1,9 @@
 $(document).ready(function() {
     var map_element = document.getElementById("map");
     map_element.addEventListener("dragover", function(evt) {
-        evt.stopPropagation();
         evt.preventDefault();
-    });
+    }, true);
     map_element.addEventListener("drop", function(evt) {
-        evt.stopPropagation();
         evt.preventDefault();
         if (evt.dataTransfer.files.length !== 1) {
             alert("Too much files !");
@@ -33,19 +31,20 @@ $(document).ready(function() {
 
             reader.readAsText(evt.dataTransfer.files[0]);
         }
-    });
+    }, true);
 
     var layerswitcher = new OpenLayers.Control.LayerSwitcher({
         roundedCorner: false,
         div: OpenLayers.Util.getElement("layer-switcher")
 
     });
+    OpenLayers.DOTS_PER_INCH = 254;
     var map = new OpenLayers.Map(map_element, {
         theme: false,
         projection: "EPSG:21781",
         units: "m",
         allOverlays: true,
-        resolutions: [4000,3750,3500,3250,3000,2750,2500,2250,2000,1750,1500,1250,1000,750,650,500,250,100,50,20,10,5,2.5,2,1.5,1,0.5],
+        resolutions: [4000,3750,3500,3250,3000,2750,2500,2250,2000,1750,1500,1250,1000,750,650,500,250,100,50,20,10,5,2.5,2,1.5,1,0.5,0.25],
         maxExtent: new OpenLayers.Bounds(420000,30000,900000,350000),
         controls: [new OpenLayers.Control.Navigation(), 
                    layerswitcher, 
