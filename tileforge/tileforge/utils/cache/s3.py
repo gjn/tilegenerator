@@ -12,6 +12,7 @@ class AWSS3(Cache):
         self.credential = (access_key, secret_access_key)
         self.bucket_name = bucket_name
         self._bucket = None
+        self.options = kwargs
 
     @property
     def bucket(self):
