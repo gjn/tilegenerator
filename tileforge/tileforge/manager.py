@@ -101,7 +101,7 @@ class Manager(object):
             else:
                 # normal error
                 str_coords = "(x: %04d, y: %04d, z: %02d)"%coords
-                logger.info("can't generated %s"%str_coords)
+                logger.info("can't generate %s (%s)"%(str_coords,message))
                 self.error_logs.write("%s === %s ===\n%s\n"%(str_coords, now, message))
                 self.error_logs.flush()
                 self.failures.append(coords)
@@ -177,7 +177,7 @@ class Manager(object):
             body_text += "\n\nWithout any errors!"
         if self.metadata.get("mail_to"):
             mail_to = [mail.strip() for mail in self.metadata.get("mail_to").split(",")]
-            send_email(to=mail_to, sender=self.metadata.get("mail_from", "tileforge@example.com"),
+            send_email(to=mail_to, sender=self.metadata.get("mail_from", "tileforge@camptocamp.com"),
                        subject=subject.replace('%layer', self.layer.name).replace('%host', gethostname()),
                        body_text=body_text, files=attachements,
                        server=self.metadata.get("mail_server_host", "localhost"),
