@@ -25,7 +25,7 @@ def vector(tcLayer, bounds, levels, connection, data):
 
     ds = ogr.Open("PG:%s"%connection.strip('"'))
     if ds is None:
-        raise Exception("PQconnectdb failed: '%s'"%connection)
+        raise Exception("PGconnectdb failed: '%s'"%connection)
     assert ds is not None
 
     for sql in re.split('"\W*"', data):
@@ -35,7 +35,15 @@ def vector(tcLayer, bounds, levels, connection, data):
 
             for geometry in (f.GetGeometryRef() for f in layer):
                 minx, maxx, miny, maxy = geometry.GetEnvelope()
-                for x, y, z in grid(tcLayer, (minx, miny, maxx, maxy), levels, use_buffer=True):
+                # dont generate all tile for the whole feature if it is larger than the requested bbox
+                logger.debug('feature bbox: ' + str(minx) + ' ' + str(miny) + ' ' + str(maxx) + ' ' + str(maxy))
+                nminx = max(min(minx,maxx),min(bounds[0],bounds[2]))
+                nminy = max(min(miny,maxy),min(bounds[1],bounds[3]))
+                nmaxx = min(max(minx,maxx),max(bounds[0],bounds[2]))
+                nmaxy = min(max(miny,maxy),max(bounds[1],bounds[3]))
+                logger.debug('final bbox: ' + str(nminx) + ' ' + str(nminy) + ' ' + str(nmaxx) + ' ' + str(nmaxy))
+                
+                for x, y, z in grid(tcLayer, (nminx, nminy, nmaxx, nmaxy), levels, use_buffer=True):
                     tile = pack('3i', x, y, z)
                     if tile not in tiles:
                         metatile = MetaTile(tcLayer, x, y, z)
