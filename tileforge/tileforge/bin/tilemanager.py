@@ -26,6 +26,9 @@ def main():
     parser.add_option("-t","--threads", type="int", default=default_threads,
                       help="number of concurrent threads to run (defaults is %d)"%default_threads)
 
+    parser.add_option("-d", "--dry_run",
+                      action="store_true", dest="dry_run", default=False)
+
     parser.add_option("-r","--retry",
                       help="retry to generated tiles from RETRY file")
 
@@ -87,7 +90,7 @@ def main():
 
     manager = Manager(layer, service.cache, bbox=bbox, levels=levels,
                       tiles=tiles, threads=options.threads,
-                      metadata=service.metadata)
+                      metadata=service.metadata, dry_run=options.dry_run)
     manager.start()
     if manager.join():
         if "wmts_capabilites_path" in service.metadata:

@@ -1,4 +1,5 @@
 import os
+import sys
 import logging
 import time
 from collections import deque
@@ -19,7 +20,7 @@ logger = logging.getLogger(__name__)
 
 class Manager(object):
     def __init__(self, layer, cache, bbox=None, levels=None, tiles=None,
-                 threads=1, metadata={}):
+                 threads=1, metadata={}, dry_run=False):
         self.metadata = metadata
         self.layer = layer
         self.bbox = bbox
@@ -32,6 +33,11 @@ class Manager(object):
         self.failures = deque()
 
         self.tiles = tiles or self.init_grid()
+        
+        if dry_run:
+            logger.info("tiles to be generated: %d" % len([t for t in self.tiles]))
+            sys.exit()
+            
         self.pool = Pool(self.poolsize, init, (self.layer, cache))
         self.results = self.pool.imap_unordered(run, self.tiles)
         self.pool.close()
