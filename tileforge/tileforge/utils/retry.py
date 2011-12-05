@@ -7,7 +7,7 @@ def load(f, service):
     layername = lines.pop(0)
     layer = service.layers.get(layername)
     tiles = []
-    for z, row, col in [tuple(map(int, tile.split())) for tile in lines]:
+    for z, row, col in [tuple(map(int, tile.split())) for tile in lines if len(tile) > 0]:
         row_count = int(ceil(((layer.bbox[3] - layer.bbox[1]) / layer.size[1]) / layer.resolutions[z]))
         tiles.append((col, row_count - 1 - row, z))
 
