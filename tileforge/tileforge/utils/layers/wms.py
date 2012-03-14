@@ -1,12 +1,44 @@
+import urllib2
+import httplib
 from TileCache.Layers.WMS import WMS as TileCacheWMS
 import TileCache.Client as WMSClient
+import tileforge
+
+try:
+    HIDE_ALL
+except NameError:
+    HIDE_ALL = True 
+
+class WMSClientHeader(WMSClient.WMS):
+    def fetch (self):
+        urlrequest = urllib2.Request(self.url())
+        urlrequest.add_header("Referer", "http://tileforge.geo.admin.ch")
+        urlrequest.add_header("User-Agent", "TileForge %s" % tileforge.__version__)
+        response = None
+        while response is None:
+            try:
+                response = self.client.open(urlrequest)
+                data = response.read()
+                # check to make sure that we have an image...
+                msg = response.info()
+                if msg.has_key("Content-Type"):
+                    ctype = msg['Content-Type']
+                    if ctype[:5].lower() != 'image':
+                        if HIDE_ALL:
+                            raise Exception("Did not get image data back. (Adjust HIDE_ALL for more detail.)")
+                        else:
+                            raise Exception("Did not get image data back. \nURL: %s\nContent-Type Header: %s\nResponse: \n%s" % (self.url(), ctype, data))
+            except httplib.BadStatusLine:
+                response = None # try again
+        return data, response
+
 
 class WMS(TileCacheWMS):
     def __init__ (self, *args, **kwargs):
         TileCacheWMS.__init__(self, *args, **kwargs)
         self.yorigin = kwargs.get('yorigin', 'bottom')
 
-        self.wms_client = WMSClient.WMS(self.url, {
+        self.wms_client = WMSClientHeader(self.url, {
           "srs": self.srs,
           "format": self.mime_type,
           "layers": self.layers,
