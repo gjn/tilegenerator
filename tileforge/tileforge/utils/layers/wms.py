@@ -3,11 +3,12 @@ import httplib
 from TileCache.Layers.WMS import WMS as TileCacheWMS
 import TileCache.Client as WMSClient
 import tileforge
+import datetime
 
 try:
     HIDE_ALL
 except NameError:
-    HIDE_ALL = True 
+    HIDE_ALL = False
 
 class WMSClientHeader(WMSClient.WMS):
     def fetch (self):
@@ -23,11 +24,11 @@ class WMSClientHeader(WMSClient.WMS):
                 msg = response.info()
                 if msg.has_key("Content-Type"):
                     ctype = msg['Content-Type']
-                    #if ctype[:5].lower() != 'image':
-                    #    if HIDE_ALL:
-                    #        raise Exception("Did not get image data back. (Adjust HIDE_ALL for more detail.)")
-                    #    else:
-                    #        raise Exception("Did not get image data back. \nURL: %s\nContent-Type Header: %s\nResponse: \n%s" % (self.url(), ctype, data))
+                    if ctype[:5].lower() != 'image':
+                        if HIDE_ALL:
+                            raise Exception("\n[%s] Did not get image data back. (Adjust HIDE_ALL for more detail.)" % (datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+                        else:
+                            raise Exception("\n[%s] Did not get image data back. \nURL: %s\nContent-Type Header: %s\nResponse: \n%s" % ( datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") ,self.url(), ctype, data))
             except httplib.BadStatusLine:
                 response = None # try again
         return data, response
