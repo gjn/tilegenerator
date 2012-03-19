@@ -23,11 +23,11 @@ class WMSClientHeader(WMSClient.WMS):
                 msg = response.info()
                 if msg.has_key("Content-Type"):
                     ctype = msg['Content-Type']
-                    if ctype[:5].lower() != 'image':
-                        if HIDE_ALL:
-                            raise Exception("Did not get image data back. (Adjust HIDE_ALL for more detail.)")
-                        else:
-                            raise Exception("Did not get image data back. \nURL: %s\nContent-Type Header: %s\nResponse: \n%s" % (self.url(), ctype, data))
+                    #if ctype[:5].lower() != 'image':
+                        #if HIDE_ALL:
+                            #raise Exception("Did not get image data back. (Adjust HIDE_ALL for more detail.)")
+                        #else:
+                            #raise Exception("Did not get image data back. \nURL: %s\nContent-Type Header: %s\nResponse: \n%s" % (self.url(), ctype, data))
             except httplib.BadStatusLine:
                 response = None # try again
         return data, response
