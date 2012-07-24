@@ -16,3 +16,9 @@ class S3Disk(Disk):
 
         return os.path.join(self.basedir, "1.0.0", layer.name, style, dimension,
                             tile_matrix_set, tile_matrix, tile_row, tile_col + ".%s"%layer.extension)
+
+    # to have the same behavior than the s3 
+    def get (self, tile):
+        self.delete(tile)
+        # write only cache
+        return None
