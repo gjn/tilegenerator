@@ -166,7 +166,7 @@ class Manager(object):
         if len(self.failures) or self.fatal:
             logger.info("errors saved to %s"%self.error_logs.name)
             if not self.fatal:
-                tiles = os.path.join(self.error_dir, self.layer.name + ".retry")
+                tiles = os.path.join(self.error_dir, self.layer.name + "." + str(int(time.time()))  + ".retry")
                 logger.info("retry file saved to %s"%tiles)
 
                 #dump(self.layer, [item.get("item") for item in self.failures], open(tiles, 'w'))
