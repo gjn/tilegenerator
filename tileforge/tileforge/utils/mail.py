@@ -15,9 +15,11 @@ def send_email(sender, to, subject, body_text, files=[], server="localhost", por
 
     msg = MIMEMultipart()
     msg['From'] = sender
+    print "vorher: %s" % to
     msg['To'] = COMMASPACE.join(to)
     msg['Date'] = formatdate(localtime=True)
     msg['Subject'] = Header(subject, 'utf-8')
+    print "nachher: %s" % msg['To']
 
     msg.attach(MIMEText(body_text, _subtype='plain', _charset='utf-8'))
     
@@ -29,8 +31,8 @@ def send_email(sender, to, subject, body_text, files=[], server="localhost", por
         msg.attach(part)
     try:
         smtp = smtplib.SMTP(server, port)
-        #smtp.set_debuglevel(1)
-        smtp.sendmail(sender, msg['To'], msg.as_string())
+        smtp.set_debuglevel(1)
+        smtp.sendmail(sender, msg['To'].split(","), msg.as_string())
         smtp.quit()
     except Exception, exception:
         print "failed to send email: %s" % exception
