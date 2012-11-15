@@ -69,10 +69,10 @@ if __name__ == '__main__':
         for layer in options.layer.split(","):
             output +="# Start testperimeter generation for layer %s ...\n" % layer
             for year in range(year_from,year_to):
-                output += "buildout/bin/tilemanager -t 64 -c etc/tilecache.swisstopo.zeitreihen.zoomlevel22.1952-1978.%s.cfg %s 22 23 -b 655000,194000,672500,206000\n" % (year,layer)
+                output += "buildout/bin/tilemanager -t 64 -c etc/ch.swisstopo.zeitreihen/tilecache.swisstopo.zeitreihen.zoomlevel22.1952-1978.%s.cfg %s 22 23 -b 655000,194000,672500,206000\n" % (year,layer)
             output +="\n# Start tile generation for layer %s ...\n" % layer
             for year in range(year_from,year_to):
-                output += "buildout/bin/tilemanager -t 64 -c etc/tilecache.swisstopo.zeitreihen.zoomlevel22.1952-1978.%s.cfg %s 22 23\n" % (year,layer)
+                output += "buildout/bin/tilemanager -t 64 -c etc/ch.swisstopo.zeitreihen/tilecache.swisstopo.zeitreihen.zoomlevel22.1952-1978.%s.cfg %s 22 23\n" % (year,layer)
             output +="\n\n"
         print output
 
