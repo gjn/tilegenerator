@@ -21,7 +21,7 @@ STAT_FOLDER=$1
 while sleep "$INTERVAL"; do
     ls -1 "$STAT_FOLDER"/*  | while read file
     do
-        LAYERNAME=${file##*/}
+        LAYERNAME=$(echo "${file##*/}" | sed 's/[\.-]/_/g')
         VALUE="`awk -F\: '{print $1}' \"${file}\"`:`awk -F\: '{print $2}' \"${file}\"`"
         echo "PUTVAL $HOSTNAME/tileforge-$LAYERNAME/tileforge_tiles interval=$INTERVAL N:$VALUE"
         VALUE="`awk -F\: '{print $3}' \"$file\"`"
