@@ -90,6 +90,11 @@ if __name__ == '__main__':
     for row in rows:
         years.add(row[1])
         layers.add(row[0])
+    
+    # add new year to rows and years for latest timestamp containing all the data
+    years.add('9999')
+    for layer in layers:
+        rows.append([layer,'9999'])
 
     if options.output == 'bash':
         # start generation of bash script content for tile generation
@@ -118,6 +123,6 @@ if __name__ == '__main__':
                 print "Generiere tilecach config : %s ..." % filename
                 shutil.copy2(template,filename)
                 for line in fileinput.FileInput(filename, inplace=1):
-                    line=line.replace("YYYY",str(year))
+                    line=line.replace("YYYY",str(year)).replace("WHERE bgdi_flugjahr = 9999","").replace("?time=9999","")
                     print line.strip()
             
