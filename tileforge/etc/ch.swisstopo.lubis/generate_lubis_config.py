@@ -33,10 +33,10 @@ if __name__ == '__main__':
 
     epilog = """Examples:
     Beispiel 1: generiere tilecache config aus der db quelle lubis.public.view_luftbilder_* :
-    python generate_zeitreihen_config.py -o config -h localhost
+    python generate_lubis_config.py -o config -h localhost
     
     Beispiel 2: Generiere ein bash Script zur Tilegenerierung aus der db quelle lubis.public.view_luftbilder_*
-    python generate_zeitreihen_config.py -o bash -h localhost
+    python generate_lubis_config.py -o bash -h localhost
     \n"""
 
     OptionParser.format_epilog = lambda self, formatter: self.epilog
@@ -103,7 +103,7 @@ if __name__ == '__main__':
             output +="# Start testperimeter generation for layer %s - year %s ...\n" % (row[0],row[1])
             output += "buildout/bin/tilemanager -t 50 -c etc/ch.swisstopo.lubis/tilecache.swisstopo.lubis.%s.cfg %s -b 655000,194000,672500,206000\n" % (row[1],row[0])
             output +="\n# Start tile generation for layer %s - year %s ...\n" % (row[0],row[1])
-            output += "buildout/bin/tilemanager -t 50 -c etc/ch.swisstopo.zeitreihen/tilecache.swisstopo.lubis.%s.cfg %s\n" % (row[1],row[0])
+            output += "buildout/bin/tilemanager -t 50 -c etc/ch.swisstopo.lubis/tilecache.swisstopo.lubis.%s.cfg %s\n" % (row[1],row[0])
             output +="\n\n"
         print output
     elif options.output == 'config':
