@@ -630,6 +630,132 @@ buildout/bin/tilemanager -t 50 -c etc/ch.swisstopo.lubis/tilecache.swisstopo.lub
 buildout/bin/tilemanager -t 50 -c etc/ch.swisstopo.lubis/tilecache.swisstopo.lubis.2009.cfg ch.swisstopo.lubis-luftbilder_infrarot
 
 
+# Start testperimeter generation for layer ch.swisstopo.lubis-luftbilder_schwarzweiss - year 1928 ...
+buildout/bin/tilemanager -t 50 -c etc/ch.swisstopo.lubis/tilecache.swisstopo.lubis.1928.cfg ch.swisstopo.lubis-luftbilder_schwarzweiss -b 655000,194000,672500,206000
+
+# Start tile generation for layer ch.swisstopo.lubis-luftbilder_schwarzweiss - year 1928 ...
+buildout/bin/tilemanager -t 50 -c etc/ch.swisstopo.lubis/tilecache.swisstopo.lubis.1928.cfg ch.swisstopo.lubis-luftbilder_schwarzweiss
+
+
+# Start testperimeter generation for layer ch.swisstopo.lubis-luftbilder_schwarzweiss - year 1929 ...
+buildout/bin/tilemanager -t 50 -c etc/ch.swisstopo.lubis/tilecache.swisstopo.lubis.1929.cfg ch.swisstopo.lubis-luftbilder_schwarzweiss -b 655000,194000,672500,206000
+
+# Start tile generation for layer ch.swisstopo.lubis-luftbilder_schwarzweiss - year 1929 ...
+buildout/bin/tilemanager -t 50 -c etc/ch.swisstopo.lubis/tilecache.swisstopo.lubis.1929.cfg ch.swisstopo.lubis-luftbilder_schwarzweiss
+
+
+# Start testperimeter generation for layer ch.swisstopo.lubis-luftbilder_schwarzweiss - year 1930 ...
+buildout/bin/tilemanager -t 50 -c etc/ch.swisstopo.lubis/tilecache.swisstopo.lubis.1930.cfg ch.swisstopo.lubis-luftbilder_schwarzweiss -b 655000,194000,672500,206000
+
+# Start tile generation for layer ch.swisstopo.lubis-luftbilder_schwarzweiss - year 1930 ...
+buildout/bin/tilemanager -t 50 -c etc/ch.swisstopo.lubis/tilecache.swisstopo.lubis.1930.cfg ch.swisstopo.lubis-luftbilder_schwarzweiss
+
+
+# Start testperimeter generation for layer ch.swisstopo.lubis-luftbilder_schwarzweiss - year 1931 ...
+buildout/bin/tilemanager -t 50 -c etc/ch.swisstopo.lubis/tilecache.swisstopo.lubis.1931.cfg ch.swisstopo.lubis-luftbilder_schwarzweiss -b 655000,194000,672500,206000
+
+# Start tile generation for layer ch.swisstopo.lubis-luftbilder_schwarzweiss - year 1931 ...
+buildout/bin/tilemanager -t 50 -c etc/ch.swisstopo.lubis/tilecache.swisstopo.lubis.1931.cfg ch.swisstopo.lubis-luftbilder_schwarzweiss
+
+
+# Start testperimeter generation for layer ch.swisstopo.lubis-luftbilder_schwarzweiss - year 1932 ...
+buildout/bin/tilemanager -t 50 -c etc/ch.swisstopo.lubis/tilecache.swisstopo.lubis.1932.cfg ch.swisstopo.lubis-luftbilder_schwarzweiss -b 655000,194000,672500,206000
+
+# Start tile generation for layer ch.swisstopo.lubis-luftbilder_schwarzweiss - year 1932 ...
+buildout/bin/tilemanager -t 50 -c etc/ch.swisstopo.lubis/tilecache.swisstopo.lubis.1932.cfg ch.swisstopo.lubis-luftbilder_schwarzweiss
+
+
+# Start testperimeter generation for layer ch.swisstopo.lubis-luftbilder_schwarzweiss - year 1933 ...
+buildout/bin/tilemanager -t 50 -c etc/ch.swisstopo.lubis/tilecache.swisstopo.lubis.1933.cfg ch.swisstopo.lubis-luftbilder_schwarzweiss -b 655000,194000,672500,206000
+
+# Start tile generation for layer ch.swisstopo.lubis-luftbilder_schwarzweiss - year 1933 ...
+buildout/bin/tilemanager -t 50 -c etc/ch.swisstopo.lubis/tilecache.swisstopo.lubis.1933.cfg ch.swisstopo.lubis-luftbilder_schwarzweiss
+
+
+# Start testperimeter generation for layer ch.swisstopo.lubis-luftbilder_schwarzweiss - year 1934 ...
+buildout/bin/tilemanager -t 50 -c etc/ch.swisstopo.lubis/tilecache.swisstopo.lubis.1934.cfg ch.swisstopo.lubis-luftbilder_schwarzweiss -b 655000,194000,672500,206000
+
+# Start tile generation for layer ch.swisstopo.lubis-luftbilder_schwarzweiss - year 1934 ...
+buildout/bin/tilemanager -t 50 -c etc/ch.swisstopo.lubis/tilecache.swisstopo.lubis.1934.cfg ch.swisstopo.lubis-luftbilder_schwarzweiss
+
+
+# Start testperimeter generation for layer ch.swisstopo.lubis-luftbilder_schwarzweiss - year 1935 ...
+buildout/bin/tilemanager -t 50 -c etc/ch.swisstopo.lubis/tilecache.swisstopo.lubis.1935.cfg ch.swisstopo.lubis-luftbilder_schwarzweiss -b 655000,194000,672500,206000
+
+# Start tile generation for layer ch.swisstopo.lubis-luftbilder_schwarzweiss - year 1935 ...
+buildout/bin/tilemanager -t 50 -c etc/ch.swisstopo.lubis/tilecache.swisstopo.lubis.1935.cfg ch.swisstopo.lubis-luftbilder_schwarzweiss
+
+
+# Start testperimeter generation for layer ch.swisstopo.lubis-luftbilder_schwarzweiss - year 1936 ...
+buildout/bin/tilemanager -t 50 -c etc/ch.swisstopo.lubis/tilecache.swisstopo.lubis.1936.cfg ch.swisstopo.lubis-luftbilder_schwarzweiss -b 655000,194000,672500,206000
+
+# Start tile generation for layer ch.swisstopo.lubis-luftbilder_schwarzweiss - year 1936 ...
+buildout/bin/tilemanager -t 50 -c etc/ch.swisstopo.lubis/tilecache.swisstopo.lubis.1936.cfg ch.swisstopo.lubis-luftbilder_schwarzweiss
+
+
+# Start testperimeter generation for layer ch.swisstopo.lubis-luftbilder_schwarzweiss - year 1937 ...
+buildout/bin/tilemanager -t 50 -c etc/ch.swisstopo.lubis/tilecache.swisstopo.lubis.1937.cfg ch.swisstopo.lubis-luftbilder_schwarzweiss -b 655000,194000,672500,206000
+
+# Start tile generation for layer ch.swisstopo.lubis-luftbilder_schwarzweiss - year 1937 ...
+buildout/bin/tilemanager -t 50 -c etc/ch.swisstopo.lubis/tilecache.swisstopo.lubis.1937.cfg ch.swisstopo.lubis-luftbilder_schwarzweiss
+
+
+# Start testperimeter generation for layer ch.swisstopo.lubis-luftbilder_schwarzweiss - year 1938 ...
+buildout/bin/tilemanager -t 50 -c etc/ch.swisstopo.lubis/tilecache.swisstopo.lubis.1938.cfg ch.swisstopo.lubis-luftbilder_schwarzweiss -b 655000,194000,672500,206000
+
+# Start tile generation for layer ch.swisstopo.lubis-luftbilder_schwarzweiss - year 1938 ...
+buildout/bin/tilemanager -t 50 -c etc/ch.swisstopo.lubis/tilecache.swisstopo.lubis.1938.cfg ch.swisstopo.lubis-luftbilder_schwarzweiss
+
+
+# Start testperimeter generation for layer ch.swisstopo.lubis-luftbilder_schwarzweiss - year 1939 ...
+buildout/bin/tilemanager -t 50 -c etc/ch.swisstopo.lubis/tilecache.swisstopo.lubis.1939.cfg ch.swisstopo.lubis-luftbilder_schwarzweiss -b 655000,194000,672500,206000
+
+# Start tile generation for layer ch.swisstopo.lubis-luftbilder_schwarzweiss - year 1939 ...
+buildout/bin/tilemanager -t 50 -c etc/ch.swisstopo.lubis/tilecache.swisstopo.lubis.1939.cfg ch.swisstopo.lubis-luftbilder_schwarzweiss
+
+
+# Start testperimeter generation for layer ch.swisstopo.lubis-luftbilder_schwarzweiss - year 1940 ...
+buildout/bin/tilemanager -t 50 -c etc/ch.swisstopo.lubis/tilecache.swisstopo.lubis.1940.cfg ch.swisstopo.lubis-luftbilder_schwarzweiss -b 655000,194000,672500,206000
+
+# Start tile generation for layer ch.swisstopo.lubis-luftbilder_schwarzweiss - year 1940 ...
+buildout/bin/tilemanager -t 50 -c etc/ch.swisstopo.lubis/tilecache.swisstopo.lubis.1940.cfg ch.swisstopo.lubis-luftbilder_schwarzweiss
+
+
+# Start testperimeter generation for layer ch.swisstopo.lubis-luftbilder_schwarzweiss - year 1941 ...
+buildout/bin/tilemanager -t 50 -c etc/ch.swisstopo.lubis/tilecache.swisstopo.lubis.1941.cfg ch.swisstopo.lubis-luftbilder_schwarzweiss -b 655000,194000,672500,206000
+
+# Start tile generation for layer ch.swisstopo.lubis-luftbilder_schwarzweiss - year 1941 ...
+buildout/bin/tilemanager -t 50 -c etc/ch.swisstopo.lubis/tilecache.swisstopo.lubis.1941.cfg ch.swisstopo.lubis-luftbilder_schwarzweiss
+
+
+# Start testperimeter generation for layer ch.swisstopo.lubis-luftbilder_schwarzweiss - year 1942 ...
+buildout/bin/tilemanager -t 50 -c etc/ch.swisstopo.lubis/tilecache.swisstopo.lubis.1942.cfg ch.swisstopo.lubis-luftbilder_schwarzweiss -b 655000,194000,672500,206000
+
+# Start tile generation for layer ch.swisstopo.lubis-luftbilder_schwarzweiss - year 1942 ...
+buildout/bin/tilemanager -t 50 -c etc/ch.swisstopo.lubis/tilecache.swisstopo.lubis.1942.cfg ch.swisstopo.lubis-luftbilder_schwarzweiss
+
+
+# Start testperimeter generation for layer ch.swisstopo.lubis-luftbilder_schwarzweiss - year 1943 ...
+buildout/bin/tilemanager -t 50 -c etc/ch.swisstopo.lubis/tilecache.swisstopo.lubis.1943.cfg ch.swisstopo.lubis-luftbilder_schwarzweiss -b 655000,194000,672500,206000
+
+# Start tile generation for layer ch.swisstopo.lubis-luftbilder_schwarzweiss - year 1943 ...
+buildout/bin/tilemanager -t 50 -c etc/ch.swisstopo.lubis/tilecache.swisstopo.lubis.1943.cfg ch.swisstopo.lubis-luftbilder_schwarzweiss
+
+
+# Start testperimeter generation for layer ch.swisstopo.lubis-luftbilder_schwarzweiss - year 1944 ...
+buildout/bin/tilemanager -t 50 -c etc/ch.swisstopo.lubis/tilecache.swisstopo.lubis.1944.cfg ch.swisstopo.lubis-luftbilder_schwarzweiss -b 655000,194000,672500,206000
+
+# Start tile generation for layer ch.swisstopo.lubis-luftbilder_schwarzweiss - year 1944 ...
+buildout/bin/tilemanager -t 50 -c etc/ch.swisstopo.lubis/tilecache.swisstopo.lubis.1944.cfg ch.swisstopo.lubis-luftbilder_schwarzweiss
+
+
+# Start testperimeter generation for layer ch.swisstopo.lubis-luftbilder_schwarzweiss - year 1945 ...
+buildout/bin/tilemanager -t 50 -c etc/ch.swisstopo.lubis/tilecache.swisstopo.lubis.1945.cfg ch.swisstopo.lubis-luftbilder_schwarzweiss -b 655000,194000,672500,206000
+
+# Start tile generation for layer ch.swisstopo.lubis-luftbilder_schwarzweiss - year 1945 ...
+buildout/bin/tilemanager -t 50 -c etc/ch.swisstopo.lubis/tilecache.swisstopo.lubis.1945.cfg ch.swisstopo.lubis-luftbilder_schwarzweiss
+
+
 # Start testperimeter generation for layer ch.swisstopo.lubis-luftbilder_schwarzweiss - year 1946 ...
 buildout/bin/tilemanager -t 50 -c etc/ch.swisstopo.lubis/tilecache.swisstopo.lubis.1946.cfg ch.swisstopo.lubis-luftbilder_schwarzweiss -b 655000,194000,672500,206000
 
@@ -642,6 +768,13 @@ buildout/bin/tilemanager -t 50 -c etc/ch.swisstopo.lubis/tilecache.swisstopo.lub
 
 # Start tile generation for layer ch.swisstopo.lubis-luftbilder_schwarzweiss - year 1947 ...
 buildout/bin/tilemanager -t 50 -c etc/ch.swisstopo.lubis/tilecache.swisstopo.lubis.1947.cfg ch.swisstopo.lubis-luftbilder_schwarzweiss
+
+
+# Start testperimeter generation for layer ch.swisstopo.lubis-luftbilder_schwarzweiss - year 1948 ...
+buildout/bin/tilemanager -t 50 -c etc/ch.swisstopo.lubis/tilecache.swisstopo.lubis.1948.cfg ch.swisstopo.lubis-luftbilder_schwarzweiss -b 655000,194000,672500,206000
+
+# Start tile generation for layer ch.swisstopo.lubis-luftbilder_schwarzweiss - year 1948 ...
+buildout/bin/tilemanager -t 50 -c etc/ch.swisstopo.lubis/tilecache.swisstopo.lubis.1948.cfg ch.swisstopo.lubis-luftbilder_schwarzweiss
 
 
 # Start testperimeter generation for layer ch.swisstopo.lubis-luftbilder_schwarzweiss - year 1949 ...
